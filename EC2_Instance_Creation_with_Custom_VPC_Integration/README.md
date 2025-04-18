@@ -15,6 +15,9 @@ Prerequisites
 - AWS IAM user with sufficient permissions
 - An existing key pair in your AWS account for SSH access
 
+Initializing Terraform:
+-terraform init
+
 Preview the plan:
 -terraform plan
 
