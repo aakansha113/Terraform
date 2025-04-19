@@ -1,4 +1,4 @@
-terraform block
+#terraform block
 terraform {
   required_providers {
     aws = {
@@ -19,7 +19,7 @@ resource "random_string" "unique_name" {
   length  = 4
   special = false
   upper   = false
-  numeric  = true
+  numeric = true
 
 }
 
