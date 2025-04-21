@@ -23,12 +23,14 @@ resource "random_string" "unique_name" {
 
 }
 
+#creating bucket name
 resource "aws_s3_bucket" "example_bucket" {
   bucket = "my-aws-bucket-${random_string.unique_name.result}"
 
 
 }
 
+#uploading object in bucket
 resource "aws_s3_object" "object_name" {
   bucket = aws_s3_bucket.example_bucket.bucket #name of the bucket where object should be upload
   key    = "text.txt"                          #name of the file
@@ -36,6 +38,7 @@ resource "aws_s3_object" "object_name" {
 
 }
 
+#giving public access
 resource "aws_s3_bucket_public_access_block" "blocking" {
   bucket                  = aws_s3_bucket.example_bucket.id
   block_public_acls       = true
@@ -44,6 +47,8 @@ resource "aws_s3_bucket_public_access_block" "blocking" {
   restrict_public_buckets = true
 
 }
+
+#Enabled versioning
 resource "aws_s3_bucket_versioning" "versioning_name" {
   bucket = aws_s3_bucket.example_bucket.id
   versioning_configuration {
