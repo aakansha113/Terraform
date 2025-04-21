@@ -26,6 +26,7 @@ resource "random_string" "unique_name" {
 resource "aws_s3_bucket" "example_bucket" {
   bucket = "my-aws-bucket-${random_string.unique_name.result}"
 
+
 }
 
 resource "aws_s3_object" "object_name" {
@@ -41,6 +42,13 @@ resource "aws_s3_bucket_public_access_block" "blocking" {
   ignore_public_acls      = true
   block_public_policy     = false
   restrict_public_buckets = true
+
+}
+resource "aws_s3_bucket_versioning" "versioning_name" {
+  bucket = aws_s3_bucket.example_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 
 }
 
