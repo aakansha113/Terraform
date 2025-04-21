@@ -35,6 +35,15 @@ resource "aws_s3_object" "object_name" {
 
 }
 
+resource "aws_s3_bucket_public_access_block" "blocking" {
+  bucket                  = aws_s3_bucket.example_bucket.id
+  block_public_acls       = true
+  ignore_public_acls      = true
+  block_public_policy     = false
+  restrict_public_buckets = true
+
+}
+
 output "bucket11" {
   value = aws_s3_bucket.example_bucket.bucket
 }
