@@ -57,6 +57,33 @@ resource "aws_s3_bucket_versioning" "versioning_name" {
 
 }
 
+#creating bucket policy
+resource "aws_s3_bucket_policy" "policy_name" {
+  bucket = aws_s3_bucket.example_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect    = "Allow"
+        Principal = "*"
+        Action = [
+          "s3:GetObject"
+        ]
+        Resource = "${aws_s3_bucket.example_bucket.arn}/*"
+      }
+    ]
+  })
+}
+
+
+data "aws_s3_bucket_policy" "policy_name" {
+  bucket = aws_s3_bucket.example_bucket.id
+
+  depends_on = [aws_s3_bucket_policy.policy_name]
+}
+
+#showing output on terminal
 output "bucket11" {
   value = aws_s3_bucket.example_bucket.bucket
 }
